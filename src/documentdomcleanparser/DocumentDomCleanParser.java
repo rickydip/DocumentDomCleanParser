@@ -26,7 +26,7 @@ public class DocumentDomCleanParser{
  
        //main
        public static void main(String[] args) {
-             String filename = "/home/riccardo/Scrivania/spazzatura/target1.xml";
+             String filename = "/home/riccardo/Desktop/spazzatura/target1.xml";
              DocumentDomCleanParser ddp = new DocumentDomCleanParser();
              DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
  
@@ -60,12 +60,104 @@ public class DocumentDomCleanParser{
              short sNodeType = currentNode.getNodeType();
              //Se è di tipo Element ricavo le informazioni e le stampo
              if (sNodeType == Node.ELEMENT_NODE) {
+                    //nome del nodo 
                     String sNodeName = currentNode.getNodeName();
+                    // valore del nodo
                     String sNodeValue = searchTextInElement(currentNode);
+                    //attributi del nodo
                     NamedNodeMap nnmAttributes = currentNode.getAttributes();
+                    
+                    //debug
+                    //System.out.println(sNodeName);
+                    //System.out.println(nnmAttributes.getLength());
+                    //
+                    
+    //ramo appender
+                    if(sNodeName.equals("appender")){
+                       String Class="",name="";
+                        if (nnmAttributes != null && nnmAttributes.getLength() > 0) {
+                    for (int iAttr=0; iAttr < nnmAttributes.getLength(); iAttr++) {
+                             if(nnmAttributes.item(iAttr).getNodeName()=="class")
+                                  Class= nnmAttributes.item(iAttr).getNodeValue();
+                             if(nnmAttributes.item(iAttr).getNodeName()=="name")
+                                  name= nnmAttributes.item(iAttr).getNodeValue(); 
+                           
+                              }//if class,name
+                    //debug
+                    System.out.println("APPENDER: "+"  NAME: "+name+"  CLASS: "+Class);
+                    
+                    //
+                    }//if nnmAttributes
+                    }//if appender
+                    
+    //ramo param
+                    if(sNodeName.equals("param")){
+                       String name="",value="";
+                        if (nnmAttributes != null && nnmAttributes.getLength() > 0) {
+                    for (int iAttr=0; iAttr < nnmAttributes.getLength(); iAttr++) {
+                             if(nnmAttributes.item(iAttr).getNodeName()=="name")
+                                  name= nnmAttributes.item(iAttr).getNodeValue();
+                             if(nnmAttributes.item(iAttr).getNodeName()=="value")
+                                  value= nnmAttributes.item(iAttr).getNodeValue(); 
+                           
+                              }//if name,value
+                    //debug
+                    System.out.println("PARAM: "+"  NAME: "+name+"  VALUE: "+value);
+                    
+                    //
+                    }//if nnmAttributes
+                    }//if param                  
+                    
+                    
+    //ramo layout
+                    if(sNodeName.equals("layout")){
+                       String Class="";
+                        if (nnmAttributes != null && nnmAttributes.getLength() > 0) {
+                    for (int iAttr=0; iAttr < nnmAttributes.getLength(); iAttr++) {
+                             if(nnmAttributes.item(iAttr).getNodeName()=="class")
+                                  Class= nnmAttributes.item(iAttr).getNodeValue();
+                                                       
+                              }//if class
+                    //debug
+                    System.out.println("LAYOUT: "+"  CLASS: "+Class);
+                    
+                    //
+                    }//if nnmAttributes
+                    }//if layout 
+                    
+                    
+  //ramo filter
+                    if(sNodeName.equals("filter")){
+                       String Class="";
+                        if (nnmAttributes != null && nnmAttributes.getLength() > 0) {
+                    for (int iAttr=0; iAttr < nnmAttributes.getLength(); iAttr++) {
+                             if(nnmAttributes.item(iAttr).getNodeName()=="class")
+                                  Class= nnmAttributes.item(iAttr).getNodeValue();
+                                                       
+                              }//if class
+                    //debug
+                    System.out.println("FILTER: "+"  CLASS: "+Class);
+                    
+                    //
+                    }//if nnmAttributes
+                    }//if filter 
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    /*
+                    
                     System.out.println("Elemento: " + sNodeName);
                     System.out.println("Attributi: " +
                                  printAttributes(nnmAttributes));
+                    */
+                    
+                    
+                    
                     if (!sNodeValue.trim().equalsIgnoreCase("")) {
                            System.out.println("Contenuto: " + sNodeValue);
                     }
@@ -94,6 +186,7 @@ public class DocumentDomCleanParser{
              return sText;
        }
  
+       
        private static String printAttributes(NamedNodeMap nnm) {
              String sAttrList = new String();
              if (nnm != null && nnm.getLength() > 0) {
