@@ -22,7 +22,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class DocumentDomCleanParser{
+public class DocumentDomParser{
  
     //var di comodo 
              short flag1=0,flag2=0,flag3=0, turn=0;
@@ -33,7 +33,7 @@ public class DocumentDomCleanParser{
        //main
        public static void main(String[] args) {
              String filename = "/home/riccardo/Desktop/spazzatura/target1.xml";
-             DocumentDomCleanParser ddp = new DocumentDomCleanParser();
+             DocumentDomParser ddp = new DocumentDomParser();
              DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
  
              try {
@@ -41,7 +41,7 @@ public class DocumentDomCleanParser{
                  try {
                      builder = dbf.newDocumentBuilder();
                  } catch (ParserConfigurationException ex) {
-                     Logger.getLogger(DocumentDomCleanParser.class.getName()).log(Level.SEVERE, null, ex);
+                     Logger.getLogger(DocumentDomParser.class.getName()).log(Level.SEVERE, null, ex);
                  }
                     File xmlFile = new File(filename);
                     org.w3c.dom.Document document = builder.parse(xmlFile);
