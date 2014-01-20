@@ -24,6 +24,12 @@ import org.xml.sax.SAXException;
 
 public class DocumentDomCleanParser{
  
+    //var di comodo 
+             short flag1=0,flag2=0,flag3=0, turn=0;
+    
+    
+    
+    
        //main
        public static void main(String[] args) {
              String filename = "/home/riccardo/Desktop/spazzatura/target1.xml";
@@ -57,6 +63,9 @@ public class DocumentDomCleanParser{
         * @param currentNode il nodo corrente
         */
        public void printNodeInfo(Node currentNode) {
+             //var di comodo 
+             //short flag1=0,flag2=0,flag3=0;
+             
              short sNodeType = currentNode.getNodeType();
              //Se è di tipo Element ricavo le informazioni e le stampo
              if (sNodeType == Node.ELEMENT_NODE) {
@@ -74,6 +83,9 @@ public class DocumentDomCleanParser{
                     
     //ramo appender
                     if(sNodeName.equals("appender")){
+                       //
+                       flag1=1; 
+                       
                        String Class="",name="";
                         if (nnmAttributes != null && nnmAttributes.getLength() > 0) {
                     for (int iAttr=0; iAttr < nnmAttributes.getLength(); iAttr++) {
@@ -90,8 +102,33 @@ public class DocumentDomCleanParser{
                     }//if nnmAttributes
                     }//if appender
                     
-    //ramo param
-                    if(sNodeName.equals("param")){
+    //nodo param interno ad appender
+                    
+                    if(sNodeName.equals("param")&& flag1==1){
+                           String name="",value="";
+                        if (nnmAttributes != null && nnmAttributes.getLength() > 0) {
+                    for (int iAttr=0; iAttr < nnmAttributes.getLength(); iAttr++) {
+                             if(nnmAttributes.item(iAttr).getNodeName()=="name")
+                                  name= nnmAttributes.item(iAttr).getNodeValue();
+                             if(nnmAttributes.item(iAttr).getNodeName()=="value")
+                                  value= nnmAttributes.item(iAttr).getNodeValue(); 
+                           
+                              }//if name,value
+                    //debug
+                    System.out.println("PARAM: "+"  NAME: "+name+"  VALUE: "+value);
+                    
+                    //
+                    }//if nnmAttributes
+                   
+                    flag1=0;   
+                       
+                    }//if param                  
+                    
+                    
+                    
+   //nodo param interno a layout
+                    
+                    if(sNodeName.equals("param")&& flag2==1){
                        String name="",value="";
                         if (nnmAttributes != null && nnmAttributes.getLength() > 0) {
                     for (int iAttr=0; iAttr < nnmAttributes.getLength(); iAttr++) {
@@ -106,11 +143,35 @@ public class DocumentDomCleanParser{
                     
                     //
                     }//if nnmAttributes
-                    }//if param                  
+                    flag2=0; 
+                    }//if param                   
                     
+ //nodo param interno a filter
+                    
+                    if(sNodeName.equals("param")&& flag3==1){
+                       String name="",value="";
+                        if (nnmAttributes != null && nnmAttributes.getLength() > 0) {
+                    for (int iAttr=0; iAttr < nnmAttributes.getLength(); iAttr++) {
+                             if(nnmAttributes.item(iAttr).getNodeName()=="name")
+                                  name= nnmAttributes.item(iAttr).getNodeValue();
+                             if(nnmAttributes.item(iAttr).getNodeName()=="value")
+                                  value= nnmAttributes.item(iAttr).getNodeValue(); 
+                           
+                              }//if name,value
+                    //debug
+                    System.out.println("PARAM: "+"  NAME: "+name+"  VALUE: "+value);
+                    
+                    //
+                    }//if nnmAttributes
+                    //flag3=0; ci possono essere più param per filter
+                    }//if param           
+ 
                     
     //ramo layout
                     if(sNodeName.equals("layout")){
+                        //
+                       flag2=1;
+                       //
                        String Class="";
                         if (nnmAttributes != null && nnmAttributes.getLength() > 0) {
                     for (int iAttr=0; iAttr < nnmAttributes.getLength(); iAttr++) {
@@ -128,6 +189,9 @@ public class DocumentDomCleanParser{
                     
   //ramo filter
                     if(sNodeName.equals("filter")){
+                        //
+                       flag3=1;
+                       //
                        String Class="";
                         if (nnmAttributes != null && nnmAttributes.getLength() > 0) {
                     for (int iAttr=0; iAttr < nnmAttributes.getLength(); iAttr++) {
@@ -171,8 +235,18 @@ public class DocumentDomCleanParser{
                            printNodeInfo(nlChilds.item(iChild));
                     }
              }
-       }
+       
+       
+       
+       }//metodo
  
+       
+       
+       
+       
+       
+       
+       
        /*
         * Search the content for a given Node
         */
