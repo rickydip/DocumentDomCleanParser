@@ -55,7 +55,7 @@ public class DocumentDomParser{
                     ioe.printStackTrace();
              }
  
-       }
+       }//main
  
  
        /**
@@ -214,7 +214,9 @@ public class DocumentDomParser{
                     
                     
                     /*
-                    
+                    //nella vecchia versione veniva richiamato il metodo
+                    //printAttributes()
+                    //
                     System.out.println("Elemento: " + sNodeName);
                     System.out.println("Attributi: " +
                                  printAttributes(nnmAttributes));
@@ -261,6 +263,12 @@ public class DocumentDomParser{
        }
  
        
+       
+       /**
+        * nella versione modificata non lo uso questo metodo
+        * @param nnm
+        * @return 
+        */
        private static String printAttributes(NamedNodeMap nnm) {
              String sAttrList = new String();
              if (nnm != null && nnm.getLength() > 0) {
